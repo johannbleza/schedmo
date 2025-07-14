@@ -1,4 +1,4 @@
-import { Upload, Sparkles, CalendarDays } from "lucide-react";
+import { Upload, Sparkles, CalendarDays, Download } from "lucide-react";
 
 export const fixedPrompt: string = `Extract the course schedule data from this image. Return a empty array if the image is not related to a schedule or course. Provide the output as a JSON array of objects.
   Each object should strictly follow this schema:
@@ -33,6 +33,11 @@ export const features = [
     name: "Organized Timetable",
     description: "View your classes in a clear, organized order.",
     icon: CalendarDays,
+  },
+  {
+    name: "Export Schedule",
+    description: "Save your schedule as an image file.", // Changed description to reflect image-only export
+    icon: Download,
   },
 ];
 

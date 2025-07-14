@@ -1,7 +1,7 @@
 "use client";
 import { fixedPrompt } from "@/lib/constants";
 import { Course, GeminiApiResponse } from "@/types";
-import { ImageIcon, SparkleIcon, Upload, XIcon } from "lucide-react";
+import { ImageIcon, SparklesIcon, Upload, XIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -256,7 +256,7 @@ const FileInput = () => {
               </svg>
             ) : (
               <div className="flex gap-2">
-                <SparkleIcon />
+                <SparklesIcon />
                 <span>Generate Schedule</span>
               </div>
             )}
