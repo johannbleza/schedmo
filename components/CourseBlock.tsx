@@ -22,8 +22,8 @@ const CourseBlock = ({ course }: CourseBlockProps) => {
       <p
         className={
           totalTime != 1
-            ? "text-[6px] text-bold md:text-[8px]"
-            : "text-[6px] text-bold"
+            ? "text-[6px] font-bold md:text-[8px]"
+            : "text-[6px] font-bold"
         }
       >
         {course_code}
