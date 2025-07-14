@@ -13,7 +13,7 @@ const ScheduleColumn = ({ day, courses }: ScheduleColumnProps) => {
   return (
     <div className="flex flex-col relative">
       <div
-        className="flex justify-center items-center border-l-1 border-slate-100 "
+        className="flex justify-center items-center border-l-1 border-slate-100 text-sm"
         style={{ height: headerHeight }}
       >
         {day.slice(0, 3)}

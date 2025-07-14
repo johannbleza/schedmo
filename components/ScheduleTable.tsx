@@ -20,7 +20,7 @@ const ScheduleTable = () => {
           <div className="grid grid-cols-7">
             <div className="flex flex-col">
               <div
-                className="flex justify-center items-center"
+                className="flex justify-center items-center text-sm"
                 style={{ height: headerHeight }}
               >
                 Time

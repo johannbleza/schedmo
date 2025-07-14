@@ -13,15 +13,25 @@ const CourseBlock = ({ course }: CourseBlockProps) => {
   const totalTime = endTime - startTime;
   return (
     <div
-      className={`absolute border border-slate-100 bg-blue-200 text-xs flex flex-col justify-center items-center w-full text-center ${course.color}`}
+      className={`absolute border border-slate-100 bg-blue-200 text-xs flex flex-col justify-center items-center w-full overflow-hidden text-center ${course.color}`}
       style={{
         top: `calc(${headerHeight} + (${parseInt(tileHeight) / 2 + (startTime - 7) * parseInt(tileHeight)}px)`,
         height: `${parseInt(tileHeight) * totalTime}px`,
       }}
     >
-      <p className="text-[6px] md:text-[10px] font-bold">{course_code}</p>
+      <p
+        className={
+          totalTime != 1
+            ? "text-[6px] text-bold md:text-[8px]"
+            : "text-[6px] text-bold"
+        }
+      >
+        {course_code}
+      </p>
 
-      <div className={totalTime < 1 ? "hidden" : "text-[6px] md:text-[8px]"}>
+      <div
+        className={totalTime != 1 ? "text-[6px] md:text-[8px]" : "text-[6px]  "}
+      >
         <p>{location}</p>
         <p>{timeToMeridiem(start_time)} to</p>
         <p>{timeToMeridiem(end_time)}</p>
