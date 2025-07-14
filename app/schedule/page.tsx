@@ -65,7 +65,7 @@ const Page = () => {
       <div className="flex flex-col gap-2 w-full md:hidden">
         <button
           onClick={handleSaveAsImage}
-          className="flex gap-2 justify-center items-center rounded p-2 hover:bg-gray-800 transition-colors bg-slate-100 border border-slate-200 text-slate-800"
+          className="flex gap-2 justify-center items-center rounded-full p-2 hover:bg-gray-800 transition-colors bg-slate-100 border border-slate-200 text-slate-800 "
         >
           <span>Save as Image</span>
           <Download className="size-4" />
@@ -73,7 +73,7 @@ const Page = () => {
         <button className="rounded  bg-full">
           <Link
             href="/"
-            className="flex gap-2 bg-blue-500 border border-blue-600 text-white justify-center items-center p-2 rounded"
+            className="flex gap-2 bg-blue-500 border border-blue-600 text-white justify-center items-center p-2 rounded-full"
           >
             <span>Create New</span>
             <Plus className="size-4" />

@@ -228,7 +228,7 @@ const FileInput = () => {
           </button>
           <button
             onClick={handleSubmit}
-            className={`w-full flex justify-center p-3  rounded shadow-lg text-white
+            className={`w-full flex justify-center p-3  rounded-full shadow-lg text-white
               ${isLoading ? "bg-blue-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"}
             `}
             disabled={isLoading}
