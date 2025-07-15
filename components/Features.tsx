@@ -3,7 +3,7 @@ import { features } from "@/lib/constants";
 const Features = () => {
   return (
     <div className="grid grid-cols-2  gap-2 w-full">
-      {features.map(({ name, description, icon }, index) => {
+      {features.map(({ name, description, icon }) => {
         const Icon = icon;
         return (
           <div

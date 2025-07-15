@@ -198,7 +198,7 @@ const FileInput = () => {
         router.push("/schedule");
       }
     }
-  }, [apiResponse]);
+  }, [router, apiResponse]);
 
   return (
     <div className="px-2 py-4 flex flex-col justify-center items-center text-center border-1 border-slate-200 rounded-lg w-full gap-2 bg-white">
