@@ -38,19 +38,19 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-[80dvh] flex flex-col justify-center items-center px-2 py-6  max-w-[50rem] mx-auto gap-3">
-      <div className="w-full flex justify-center md:justify-between items-center">
+    <div className="flex flex-col justify-center items-center px-2 py-10  max-w-[40rem] mx-auto gap-3">
+      <div className="w-full flex justify-center md:justify-between items-end">
         <h1 className="font-semibold text-4xl md:text-4xl">Weekly Schedule</h1>
         <div className="hidden md:flex gap-2">
           <button
             onClick={handleSaveAsImage}
-            className="flex gap-2 justify-center items-center rounded py-2 px-3  bg-slate-100 border border-slate-200 text-slate-800 cursor-pointer hover:opacity-75"
+            className="flex gap-2 justify-center items-center rounded p-2 text-sm  bg-slate-100 border border-slate-200 text-slate-800 cursor-pointer hover:opacity-75"
           >
             <span>Save as Image</span>
             <Download className="size-4" />
           </button>
           <Link href="/">
-            <button className="flex gap-2 bg-blue-500 border border-blue-600 text-white justify-center items-center px-3 py-2 rounded cursor-pointer hover:opacity-75">
+            <button className="flex gap-2 bg-blue-500 border border-blue-600 text-white justify-center items-center p-2 text-sm rounded cursor-pointer hover:opacity-75">
               <span>Create New</span>
               <Plus className="size-4" />
             </button>

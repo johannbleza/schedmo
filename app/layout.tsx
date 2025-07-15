@@ -17,8 +17,8 @@ export default function RootLayout({
       <body className="bg-slate-50">
         <Navbar />
         {children}
-        <div className="max-w-[50rem] mx-auto flex justify-end">
-          <p className="text-sm text-slate-300 p-4">Created by Johann</p>
+        <div className="max-w-[40rem] mx-auto flex justify-end">
+          <p className="text-sm text-slate-300 p-2">Created by Johann</p>
         </div>
       </body>
     </html>
