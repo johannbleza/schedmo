@@ -22,7 +22,7 @@ const CourseBlock = ({ course }: CourseBlockProps) => {
       <p
         className={
           totalTime != 1
-            ? "text-[6px] font-bold md:text-[8px]"
+            ? "text-[6px] font-bold md:text-[7px]"
             : "text-[6px] font-bold"
         }
       >
@@ -30,7 +30,7 @@ const CourseBlock = ({ course }: CourseBlockProps) => {
       </p>
 
       <div
-        className={totalTime != 1 ? "text-[6px] md:text-[8px]" : "text-[6px]  "}
+        className={totalTime != 1 ? "text-[6px] md:text-[7px]" : "text-[6px]  "}
       >
         <p>{location}</p>
         <p>{timeToMeridiem(start_time)} to</p>

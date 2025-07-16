@@ -12,14 +12,11 @@ const Page = () => {
     if (!scheduleRef.current) return;
 
     try {
-      // Generate image using modern-screenshot
       const dataUrl = await domToPng(scheduleRef.current, {
         quality: 1,
         backgroundColor: "#ffffff",
         scale: 2, // Higher resolution
-        style: {
-          // Any additional styles you want to apply
-        },
+        style: {},
       });
 
       // Create download link
@@ -33,7 +30,6 @@ const Page = () => {
       document.body.removeChild(link);
     } catch (error) {
       console.error("Error saving image:", error);
-      // You might want to show a toast notification here
     }
   };
 
