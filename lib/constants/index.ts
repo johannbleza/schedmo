@@ -1,6 +1,6 @@
 import { Upload, Sparkles, CalendarDays, Download } from "lucide-react";
 
-export const fixedPrompt: string = `Extract the course schedule data from this image. Return a empty array if the image is not related to a schedule or course. Provide the output as a JSON array of objects.
+export const fixedPrompt: string = `Extract the course schedule data from this image. Return a empty array if the image is not related to a schedule or course. Provide the output as a JSON array of objects. Double Check the Dates and S is for saturday.
   Each object should strictly follow this schema:
   - 'id' (a unique string for each course generate this randomly dont base on the image)
   - 'name' (the course title)
