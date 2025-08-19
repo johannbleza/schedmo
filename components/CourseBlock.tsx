@@ -7,7 +7,8 @@ interface CourseBlockProps {
 }
 
 const CourseBlock = ({ course }: CourseBlockProps) => {
-  const { start_time, end_time, course_code, location } = course;
+  console.log(course);
+  const { start_time, end_time, course_code, location, name } = course;
   const startTime = timeToMinutes(start_time) / 60;
   const endTime = timeToMinutes(end_time) / 60;
   const totalTime = endTime - startTime;
@@ -27,6 +28,11 @@ const CourseBlock = ({ course }: CourseBlockProps) => {
         }
       >
         {course_code}
+      </p>
+      <p
+        className={totalTime != 1 ? "text-[6px] font-semibold px-2" : "hidden"}
+      >
+        {name}
       </p>
 
       <div

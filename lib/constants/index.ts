@@ -89,4 +89,4 @@ export const timePeriods = [
 ];
 
 export const headerHeight = "52px";
-export const tileHeight = "40px";
+export const tileHeight = "48px";
