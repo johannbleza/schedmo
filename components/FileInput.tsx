@@ -1,6 +1,5 @@
 "use client";
-import { fixedPrompt } from "@/lib/constants";
-import { Course, GeminiApiResponse } from "@/types";
+import { Course } from "@/types";
 import { ImageIcon, SparklesIcon, Upload, XIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -70,112 +69,25 @@ const FileInput = () => {
         reader.readAsDataURL(file);
       });
 
-      // Construct the chat history with the fixed prompt and image data
-      const chatHistory = [
-        {
-          role: "user",
-          parts: [
-            { text: fixedPrompt }, // Use the fixed prompt here
-            {
-              inlineData: {
-                mimeType: file.type,
-                data: base64ImageData,
-              },
-            },
-          ],
-        },
-      ];
-
-      // Define the payload for the Gemini API, including the generationConfig
-      // to request a structured JSON response based on the Course interface.
-      const payload = {
-        contents: chatHistory,
-        generationConfig: {
-          responseMimeType: "application/json", // Request JSON output
-          responseSchema: {
-            // Define the schema for the expected JSON array of objects
-            type: "ARRAY",
-            items: {
-              type: "OBJECT",
-              properties: {
-                id: { type: "STRING" },
-                name: { type: "STRING" },
-                course_code: { type: "STRING" },
-                instructor: { type: "STRING" },
-                location: { type: "STRING" },
-                days: { type: "ARRAY", items: { type: "STRING" } }, // 'days' is now an array of strings
-                start_time: { type: "STRING" },
-                end_time: { type: "STRING" },
-                schedule_id: { type: "STRING" },
-                color: { type: "STRING" },
-              },
-              // Specify the order of properties for consistent output
-              propertyOrdering: [
-                "id",
-                "name",
-                "course_code",
-                "instructor",
-                "location",
-                "days",
-                "start_time",
-                "end_time",
-                "schedule_id",
-                "color",
-              ],
-            },
-          },
-        },
-      };
-
-      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY; // API key is provided by Canvas
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-      const response = await fetch(apiUrl, {
+      const response = await fetch("/api/analyze-schedule", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          imageData: base64ImageData,
+          mimeType: file.type,
+        }),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `API error: ${response.status} - ${errorData.error?.message || "Unknown API error"}`,
-        );
+        throw new Error(result.error || "Failed to analyze schedule");
       }
 
-      const result: GeminiApiResponse = await response.json();
-
-      // Process the API response: expect a JSON string and parse it
-      if (
-        result.candidates &&
-        result.candidates.length > 0 &&
-        result.candidates[0].content &&
-        result.candidates[0].content.parts &&
-        result.candidates[0].content.parts.length > 0 &&
-        result.candidates[0].content.parts[0].text
-      ) {
-        const jsonText = result.candidates[0].content.parts[0].text;
-        try {
-          // Attempt to parse the JSON string into an array of Course objects
-          const parsedCourses: Course[] = JSON.parse(jsonText);
-          // Format the parsed JSON for display, making it readable
-          setApiResponse(JSON.stringify(parsedCourses, null, 2));
-        } catch (jsonError: unknown) {
-          if (jsonError instanceof Error) {
-            setError(
-              `Failed to parse Gemini's response as JSON: ${jsonError.message}. Response: ${jsonText}`,
-            );
-          } else {
-            setError(
-              `Failed to parse Gemini's response as JSON: An unknown error occurred. Response: ${jsonText}`,
-            );
-          }
-        }
-      } else {
-        setApiResponse("No structured content found in the API response.");
-      }
+      const parsedCourses: Course[] = result.courses;
+      setApiResponse(JSON.stringify(parsedCourses, null, 2));
     } catch (err: unknown) {
-      console.error("Error calling Gemini API:", err);
+      console.error("Error analyzing schedule:", err);
       if (err instanceof Error) {
         setError(
           err.message || "An unexpected error occurred during API call.",
@@ -199,6 +111,26 @@ const FileInput = () => {
       }
     }
   }, [router, apiResponse]);
+
+  useEffect(() => {
+    const handlePaste = (event: ClipboardEvent) => {
+      const items = event.clipboardData?.items;
+      if (!items) return;
+
+      for (const item of items) {
+        if (item.type.startsWith("image/")) {
+          const pastedFile = item.getAsFile();
+          if (pastedFile) {
+            processFile(pastedFile);
+            break;
+          }
+        }
+      }
+    };
+
+    document.addEventListener("paste", handlePaste);
+    return () => document.removeEventListener("paste", handlePaste);
+  }, []);
 
   return (
     <div className="px-2 py-4 flex flex-col justify-center items-center text-center border-1 border-slate-200 rounded-lg w-full gap-2 bg-white">
@@ -278,9 +210,9 @@ const FileInput = () => {
           <div className="p-3 bg-slate-100 rounded-full text-slate-400">
             <ImageIcon className="size-8" />
           </div>
-          <h1>Select an image</h1>
+          <h1>Select an image or paste from clipboard</h1>
           <h2 className="text-sm text-slate-400">
-            Supports PNG, JPG, JPEG files
+            Supports PNG, JPG, JPEG files (Ctrl+V / Cmd+V to paste)
           </h2>
         </div>
       )}
